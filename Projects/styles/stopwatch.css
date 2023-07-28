@@ -1,0 +1,64 @@
+body{
+    font-family: Arial;
+    color: white;
+    background-color: black;
+}
+div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.my-button{
+    border-radius: 50%;
+    padding: 20px 14px; 
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+.start-button{
+    color: rgb(119, 243, 94);
+    background-color: rgb(50, 90, 50);
+}
+.stop-button{
+    color: red;
+    background-color:rgb(99, 28, 28);
+}
+.reset-button, .lap-button{
+    padding: 20px 11px;
+    color: rgb(190, 190, 190);
+    background-color: rgb(53, 53, 53);
+    margin-right: 100px;
+}
+.lap-button-active{
+    padding: 20px 17px;
+    color: white;
+    background-color: rgb(87, 87, 87); 
+}
+.lap-button-inactive{
+    padding: 20px 17px;
+    cursor: default; 
+}
+.reset-button{
+    padding: 20px 11px;
+}
+.timer-display{
+    font-size: 60px;
+    text-align: center;
+}
+.lap-display{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 150px 100px;
+    grid-template-rows: auto;
+}
+.lap-display-text{
+    font-size: 20px;
+    margin-left: 10px;
+}
+.lap-number{
+    margin-right: 90px;
+}
+
+
+
