@@ -222,7 +222,14 @@ lapButton.addEventListener('click', () => {
     }
 
     else{
-        lapTimer();
+
+        (lapButton.classList).forEach((element) => {
+            if (element === 'lap-button-active'){
+                lapTimer();
+            }
+        })
+
+        return;
     }
 })
 
