@@ -1,3 +1,33 @@
+@keyframes slideUp {
+    from {
+        transform: translateY(14px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-14px);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-300px);
+    }
+
+    to {
+        transform: translateX(0px);
+    }
+}
+
 body{
     font-family: Arial;
     color: white;
@@ -15,6 +45,10 @@ div{
     font-size: 15px;
     cursor: pointer;
     text-align: center;
+
+    animation-name: slideUp;
+    animation-duration: 1.3s;
+    animation-timing-function: ease;
 }
 .start-button{
     color: rgb(119, 243, 94);
@@ -45,6 +79,10 @@ div{
 .timer-display{
     font-size: 60px;
     text-align: center;
+
+    animation-name: slideDown;
+    animation-duration: 1.3s;
+    animation-timing-function: ease;
 }
 .lap-display{
     margin-top: 20px;

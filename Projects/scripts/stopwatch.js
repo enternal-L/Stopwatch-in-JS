@@ -259,4 +259,7 @@ Create Reset and Lap.
     Reset turns back to inactive lap. Done
 
 
+    FIX LAP
+    Lap is a mini-timer which intiates on start button, and displays new lap and resets mini-timer each time lap-button is clicked
+
 */
