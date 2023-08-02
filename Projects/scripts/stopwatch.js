@@ -4,6 +4,11 @@ const myParagraph = document.querySelector('p')
 const resetButton = document.querySelector('.reset-button')
 const lapButton = document.querySelector('.lap-button')
 const lapDisplay = document.querySelector('.lap-display')
+let lapStopwatch;
+let myArray = []
+
+// Main display variables
+
 let lapNumber = 0;
 let idnumber;
 let i;
@@ -18,6 +23,23 @@ let tensSeconds;
 let unitsMinutes;
 let tensMinutes;
 let timeOut;
+
+// Lap display variables
+
+let idnumber1;
+let i1;
+let j1;
+let k1;
+let l1;
+let m1;
+let unitsMilliseconds1;
+let tensMilliseconds1;
+let unitsSeconds1;
+let tensSeconds1;
+let unitsMinutes1;
+let tensMinutes1;
+let timeOut1;
+let compareValue = 0;
 
 
 const startTimer = () => {
@@ -126,15 +148,17 @@ const startTimer = () => {
             reDirect();
         }
 
+
     }, timeOut);
 }
 
 const stopTimer = () => {
     clearInterval(idnumber)
+    clearInterval(idnumber1)
 }
 
 const resetTimer = () => {
-    /// Reset Variable
+    /// Reset Variables
     
     i = 0;
     j = 0;
@@ -148,6 +172,19 @@ const resetTimer = () => {
     unitsMinutes = 0;
     tensMinutes = 0;
     lapNumber = 0;
+
+    i1 = 0;
+    j1 = 0;
+    k1 = 0;
+    l1 = 0;
+    m1 = 0;
+    unitsMilliseconds1 = 0;
+    tensMilliseconds1 = 0;
+    unitsSeconds1 = 0;
+    tensSeconds1 = 0;
+    unitsMinutes1 = 0;
+    tensMinutes1 = 0;
+    compareValue = 0;
 
     /// Reset Display
 
@@ -166,11 +203,168 @@ const resetTimer = () => {
 }
 
 const lapTimer = () => {
+
+    // Stops previous Lap
+    clearInterval(idnumber1)
+
+    // Pushes compareValue into array
+
+    myArray.push(compareValue)
+
+    // Reset variables in preperation of new Lap
+
+    i1 = 0;
+    j1 = 0;
+    k1 = 0;
+    l1 = 0;
+    m1 = 0;
+    unitsMilliseconds1 = 0;
+    tensMilliseconds1 = 0;
+    unitsSeconds1 = 0;
+    tensSeconds1 = 0;
+    unitsMinutes1 = 0;
+    tensMinutes1 = 0;
+    compareValue = 0;
+
+    // Display laps
     lapNumber++;
-    lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number'>Lap${lapNumber}</p><p class = 'lap-display-text'>${tensMinutes}${unitsMinutes}:${tensSeconds}${unitsSeconds}.${tensMilliseconds}${unitsMilliseconds}</p>`
+    lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number'>Lap${lapNumber}</p><p class = 'lap-display-text js-lap-stopwatch-${lapNumber}'>00:00.00</p>`;
+    
+    lapStopwatch = document.querySelector(`.js-lap-stopwatch-${lapNumber}`);
+
+    startLapTimer(lapStopwatch);
 }
 
+const compareLapTimer = () => {
 
+    let minIndex = 0;
+    let maxIndex = 0
+
+    //Find min and max
+
+    myArray.forEach((element, i) , () => {
+        if (Math.max(...myArray) === element){
+            maxIndex = i;
+        }
+        if (Math.min(...myArray) === element){
+            minIndex = i;
+        }
+    })
+
+    //Style
+}
+
+const startLapTimer = (lapStopwatch) => {
+    i1 = i1 || 0;
+    j1 = j1 || 0;
+    k1 = k1 || 0;
+    l1 = l1 || 0;
+    m1 = m1 || 0;
+    unitsMilliseconds1 = unitsMilliseconds1 || 0;
+    tensMilliseconds1 = tensMilliseconds1 || 0;
+    unitsSeconds1 = unitsSeconds1 || 0;
+    tensSeconds1 = tensSeconds1 || 0;
+    unitsMinutes1 = unitsMinutes1 || 0;
+    tensMinutes1 = tensMinutes1 || 0;
+    timeOut1 = 10;
+
+    idnumber1 = setInterval(() => {
+
+        unitsMilliseconds1++;
+
+        lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${unitsSeconds1}.${tensMilliseconds1}${unitsMilliseconds1}`
+
+        
+        if (unitsMilliseconds1 === 10){
+
+            if (i1 === 9){
+                i1 = -1
+            }
+
+            i1++;
+
+            lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${unitsSeconds1}.${i1}0`
+
+            unitsMilliseconds1 = 0;
+        
+            tensMilliseconds1++;
+            
+        }
+
+        if (tensMilliseconds1 === 10){
+
+            if (j1 === 9){
+                j1 = -1
+            }
+
+            j1++; 
+
+            lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${j1}.00`
+            
+            tensMilliseconds1 = 0;
+        
+            unitsSeconds1++;  
+    
+        }
+
+        if (unitsSeconds1 === 10){
+
+            if (k1 === 9){
+                k1 = -1
+            }
+
+            k1++;
+
+            lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${k1}0.00`
+            
+            unitsSeconds1 = 0;
+        
+            tensSeconds1++;  
+            
+        }
+
+        if (tensSeconds1 === 6){
+
+            if (l1 === 5){
+                l1 = -1
+            }
+
+            m1++;
+
+            lapStopwatch.innerHTML = `${tensMinutes1}${l1}:00.00`
+            
+            tensSeconds1 = 0;
+        
+            unitsMinutes1++;  
+
+        }
+
+        if (unitsMinutes1 === 10){
+
+            if (m1 === 9){
+                m1 = -1
+            }
+
+            n1++;
+
+            lapStopwatch.innerHTML = `${m1}0:0.00`
+        
+            unitsMinutes1 = 0;
+        
+            tensMinutes1++;  
+            
+        }
+
+        if (tensMinutes1 === 6){
+            reDirect();
+        }
+
+        compareValue++;
+
+    }, timeOut1);
+}
+
+// Onclick Stuffs
 startButton.addEventListener('click', () => {
 
     if (startButton.innerHTML === 'Start'){ /// Switches start to stop
@@ -195,6 +389,10 @@ startButton.addEventListener('click', () => {
         }
 
         startTimer();
+
+        if (lapNumber === 0){
+            lapTimer()
+        }
 
     }
 
@@ -223,7 +421,7 @@ lapButton.addEventListener('click', () => {
 
     else{
 
-        (lapButton.classList).forEach((element) => {
+        (lapButton.classList).forEach((element) => {  /// Loops through lapbutto class to check for lap-button-active
             if (element === 'lap-button-active'){
                 lapTimer();
             }
