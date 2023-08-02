@@ -102,5 +102,10 @@ div{
 
 /* Change Colors of Lap*/
 
+.red{
+    color: red;
+}
 
-
+.green{
+    color:green;
+}

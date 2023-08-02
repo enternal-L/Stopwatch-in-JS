@@ -6,23 +6,13 @@
     <title>Document</title>
 </head>
 <body>
+    <p>Hello</p>
     <script>
 
-        let myArray = [1,2,3,4]
-        let i = 1
-        let i1 = 2
+        for (let i = 1; i < 4; i++) {
+            document.body.innerHTML += `<p id = ${i}></p>`
+        }
 
-        i, i1 = 0
-
-        console.log(i, i1)
-
-        console.log(Math.max(...myArray))
-
-        myArray.forEach((element, i) , () => {
-            if (Math.max(myArray) === element){
-                console.log(i)
-            }
-        })
     </script>
 </body>
 </html>

@@ -227,31 +227,65 @@ const lapTimer = () => {
     compareValue = 0;
 
     // Display laps
+
     lapNumber++;
-    lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number'>Lap${lapNumber}</p><p class = 'lap-display-text js-lap-stopwatch-${lapNumber}'>00:00.00</p>`;
-    
+    lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number js-lap-${lapNumber}'>Lap${lapNumber}</p><p class = 'lap-display-text js-lap-stopwatch-${lapNumber}'>00:00.00</p>`;
+
     lapStopwatch = document.querySelector(`.js-lap-stopwatch-${lapNumber}`);
 
     startLapTimer(lapStopwatch);
+
+    compareLapTimer()
 }
 
 const compareLapTimer = () => {
 
-    let minIndex = 0;
-    let maxIndex = 0
+    /// Queryselectorall returns an array
+    let AllDisplay = document.querySelectorAll('.lap-display-text')
+
+    let fastestIndex = 0;
+    let slowestIndex = 0;
 
     //Find min and max
 
-    myArray.forEach((element, i) , () => {
-        if (Math.max(...myArray) === element){
-            maxIndex = i;
+    myArray.forEach((element, i) => {
+        if (element === Math.max(...myArray)){
+            slowestIndex = i;
         }
-        if (Math.min(...myArray) === element){
-            minIndex = i;
+        if (element === Math.min(...myArray)){
+            fastestIndex = i;
         }
     })
 
     //Style
+
+    // Remove .green and .red from all laps
+
+    for (let i = 0; i < AllDisplay.length; i++){
+        AllDisplay[i].classList.remove('green')
+        AllDisplay[i].classList.remove('red')
+        console.log(AllDisplay[i])
+    }
+
+    if (myArray.length > 1){
+
+        // Add .green and .red to fastest and slowest laps
+
+        const SlowestDisplayText = document.querySelector(`.js-lap-${slowestIndex}`)
+        const SlowestDisplayTime = document.querySelector(`.js-lap-stopwatch-${slowestIndex}`)
+        
+        const FastestDisplayText = document.querySelector(`.js-lap-${fastestIndex + 1}`)
+        const FastestDisplayTime =  document.querySelector(`.js-lap-stopwatch-${fastestIndex + 1}`)
+
+        SlowestDisplayText.classList.add('red')
+        SlowestDisplayTime.classList.add('red')
+
+        FastestDisplayText.classList.add('green')
+        FastestDisplayTime.classList.add('green')
+    }
+
+    console.log(fastestIndex)
+    console.log(slowestIndex)
 }
 
 const startLapTimer = (lapStopwatch) => {
