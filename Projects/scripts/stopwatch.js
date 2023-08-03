@@ -5,8 +5,7 @@ const resetButton = document.querySelector('.reset-button')
 const lapButton = document.querySelector('.lap-button')
 const lapDisplay = document.querySelector('.lap-display')
 let lapStopwatch;
-let myArray = [];
-let myArray2 = [];
+let myArray = []
 
 // Main display variables
 
@@ -41,7 +40,6 @@ let unitsMinutes1;
 let tensMinutes1;
 let timeOut1;
 let compareValue = 0;
-let objectIndex = 0;
 
 
 const startTimer = () => {
@@ -194,6 +192,7 @@ const resetTimer = () => {
     
     /// Reset -> Inactive lap
 
+
     lapButton.innerHTML = 'Lap'
     lapButton.classList.add('lap-button-inactive');
     lapButton.classList.remove('lap-button-active');
@@ -208,23 +207,9 @@ const lapTimer = () => {
     // Stops previous Lap
     clearInterval(idnumber1)
 
-    console.log(unitsMilliseconds1, tensMilliseconds1, unitsSeconds1, tensSeconds1, unitsMinutes1, tensMinutes1)
-
-    lapDisplay.innerHTML = '';
-
     // Pushes compareValue into array
 
     myArray.push(compareValue)
-
-    // Display laps
-
-    lapNumber++;
-
-    myArray2.push(`<p class = 'lap-display-text lap-number js-lap-${lapNumber}'>Lap${lapNumber}</p><p class = 'lap-display-text js-lap-stopwatch-${lapNumber}'>${tensMinutes1 || 0}${unitsMinutes1 || 0}:${tensSeconds1 || 0}${unitsSeconds1 || 0}.${tensMilliseconds1 || 0}${unitsMilliseconds1 || 0}</p>`)
-
-    for (let i = myArray2.length; i > 0; i--){
-        lapDisplay.innerHTML += myArray2[i - 1]
-    }
 
     // Reset variables in preperation of new Lap
 
@@ -241,7 +226,10 @@ const lapTimer = () => {
     tensMinutes1 = 0;
     compareValue = 0;
 
-    // Start mini-timer
+    // Display laps
+
+    lapNumber++;
+    lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number js-lap-${lapNumber}'>Lap${lapNumber}</p><p class = 'lap-display-text js-lap-stopwatch-${lapNumber}'>00:00.00</p>`;
 
     lapStopwatch = document.querySelector(`.js-lap-stopwatch-${lapNumber}`);
 
@@ -271,7 +259,7 @@ const compareLapTimer = () => {
 
     //Style
 
-    // Reset css by removing .green and .red from all laps
+    // Remove .green and .red from all laps
 
     for (let i = 0; i < AllDisplay.length; i++){
         AllDisplay[i].classList.remove('green')
@@ -408,8 +396,6 @@ const startLapTimer = (lapStopwatch) => {
         compareValue++;
 
     }, timeOut1);
-
-    objectIndex++;
 }
 
 // Onclick Stuffs
@@ -469,7 +455,7 @@ lapButton.addEventListener('click', () => {
 
     else{
 
-        (lapButton.classList).forEach((element) => {  /// Loops through lap button class to check for lap-button-active
+        (lapButton.classList).forEach((element) => {  /// Loops through lapbutto class to check for lap-button-active
             if (element === 'lap-button-active'){
                 lapTimer();
             }
@@ -506,7 +492,6 @@ Create Reset and Lap.
 
 
     FIX LAP
-    Lap is a mini-timer which intiates on start button, and displays new lap and resets mini-timer each time lap-button is clicked. Done
-    Push Lap and 00:00.00 onto array, array returns array[0] so displays from start
+    Lap is a mini-timer which intiates on start button, and displays new lap and resets mini-timer each time lap-button is clicked
 
 */
