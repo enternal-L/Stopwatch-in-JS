@@ -188,9 +188,6 @@ const resetTimer = () => {
     tensMinutes1 = 0;
     compareValue = 0;
 
-    myArray = []
-    myArray2 = []
-
     /// Reset Display
 
     myParagraph.innerHTML = `00:00.00`;
@@ -250,8 +247,6 @@ const lapTimer = () => {
 
     startLapTimer(lapStopwatch);
 
-    // For max and min
-
     compareLapTimer()
 }
 
@@ -266,9 +261,6 @@ const compareLapTimer = () => {
     //Find min and max
 
     myArray.forEach((element, i) => {
-        if (myArray.length > 1 && element === 0){ // Splices the 0 from array to avoid bug
-            myArray.splice(0,1)
-        }
         if (element === Math.max(...myArray)){
             slowestIndex = i;
         }
@@ -284,14 +276,15 @@ const compareLapTimer = () => {
     for (let i = 0; i < AllDisplay.length; i++){
         AllDisplay[i].classList.remove('green')
         AllDisplay[i].classList.remove('red')
+        console.log(AllDisplay[i])
     }
 
     if (myArray.length > 1){
 
         // Add .green and .red to fastest and slowest laps
 
-        const SlowestDisplayText = document.querySelector(`.js-lap-${slowestIndex + 1}`)
-        const SlowestDisplayTime = document.querySelector(`.js-lap-stopwatch-${slowestIndex + 1}`)
+        const SlowestDisplayText = document.querySelector(`.js-lap-${slowestIndex}`)
+        const SlowestDisplayTime = document.querySelector(`.js-lap-stopwatch-${slowestIndex}`)
         
         const FastestDisplayText = document.querySelector(`.js-lap-${fastestIndex + 1}`)
         const FastestDisplayTime =  document.querySelector(`.js-lap-stopwatch-${fastestIndex + 1}`)
@@ -302,6 +295,9 @@ const compareLapTimer = () => {
         FastestDisplayText.classList.add('green')
         FastestDisplayTime.classList.add('green')
     }
+
+    console.log(fastestIndex)
+    console.log(slowestIndex)
 }
 
 const startLapTimer = (lapStopwatch) => {
