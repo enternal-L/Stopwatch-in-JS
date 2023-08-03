@@ -6,12 +6,19 @@
     <title>Document</title>
 </head>
 <body>
+    <p>Hello</p>
     <script>
-        myObject= {}
 
-        for (let i = 0; i < 3; i++){
-            myObject[i] = ['hello', 'hi']
+        for (let i = 1; i < 4; i++) {
+            document.body.innerHTML += `<p id = ${i}></p>`
         }
+
+
+        let myArray = [1,0,2]
+
+        myArray.splice(0,1)
+
+        console.log(myArray)
     </script>
 </body>
 </html>
