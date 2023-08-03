@@ -194,7 +194,6 @@ const resetTimer = () => {
     
     /// Reset -> Inactive lap
 
-
     lapButton.innerHTML = 'Lap'
     lapButton.classList.add('lap-button-inactive');
     lapButton.classList.remove('lap-button-active');
@@ -430,6 +429,10 @@ startButton.addEventListener('click', () => {
         if (lapNumber === 0){
             lapTimer()
         }
+        
+        else{
+            startLapTimer(lapStopwatch)
+        }
 
     }
 
@@ -494,7 +497,14 @@ Create Reset and Lap.
     Reset turns back to inactive lap. Done
 
 
-    FIX LAP
-    Lap is a mini-timer which intiates on start button, and displays new lap and resets mini-timer each time lap-button is clicked
+FIX LAP
+    Lap is a mini-timer which intiates on start button, and displays new lap and resets mini-timer each time lap-button is clicked. Done
+    Lap should insert newest on top
+        create array which saves html element
+        create (decreasing index) for loop to run through each element and display them onto page
+
+        Issue1:
+            When lapTimer() first runs it will save undefined element because 'pushing the array' runs before the startlapTimer(). First Lap will be undefined
+            
 
 */
