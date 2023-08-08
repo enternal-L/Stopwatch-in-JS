@@ -187,7 +187,7 @@ const resetTimer = () => {
     unitsMinutes1 = 0;
     tensMinutes1 = 0;
     compareValue = 0;
-    index = 0;
+    index = -1;
 
     myArray = []
     myStopwatchArray = []
@@ -230,7 +230,7 @@ const lapTimer = () => {
     unitsMinutes1 = 0;
     tensMinutes1 = 0;
     compareValue = 0;
-    index ++;
+    index++;
 
     // Display laps
 
@@ -245,6 +245,7 @@ const lapTimer = () => {
 
         reversedArray.forEach((element,index) => {
             lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number js-lap-${reversedArray.length - index}'>Lap${reversedArray.length - index}</p><p class = 'lap-display-text js-lap-stopwatch-${reversedArray.length - index}'>${element}</p>`;
+            console.log(reversedArray)
         });
     }
 
