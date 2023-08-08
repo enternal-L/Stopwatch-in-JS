@@ -9,8 +9,12 @@
     <p>Hello</p>
     <script>
 
-        for (let i = 1; i < 4; i++) {
-            document.body.innerHTML += `<p id = ${i}></p>`
+        myArray = []
+
+
+        for (let i = 0; i < 5; i++){
+            myArray.splice(0 , 1 , i)
+            console.log(myArray)
         }
 
     </script>

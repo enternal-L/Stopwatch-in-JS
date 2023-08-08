@@ -5,9 +5,8 @@ const resetButton = document.querySelector('.reset-button')
 const lapButton = document.querySelector('.lap-button')
 const lapDisplay = document.querySelector('.lap-display')
 let lapStopwatch;
-let myArray = [];
-let myArray2 = [];
-let myBoolean = false;
+let myArray = []
+let myStopwatchArray = []
 
 // Main display variables
 
@@ -42,7 +41,7 @@ let unitsMinutes1;
 let tensMinutes1;
 let timeOut1;
 let compareValue = 0;
-let objectIndex = 0;
+let index = -1;
 
 
 const startTimer = () => {
@@ -188,9 +187,10 @@ const resetTimer = () => {
     unitsMinutes1 = 0;
     tensMinutes1 = 0;
     compareValue = 0;
+    index = 0;
 
     myArray = []
-    myArray2 = []
+    myStopwatchArray = []
 
     /// Reset Display
 
@@ -210,32 +210,11 @@ const resetTimer = () => {
 const lapTimer = () => {
 
     // Stops previous Lap
-    clearInterval(idnumber1);
-
-    console.log(tensMinutes1, unitsMinutes1, tensSeconds1, unitsSeconds1, tensMilliseconds1, unitsMilliseconds1);
-
-    lapDisplay.innerHTML = '';
+    clearInterval(idnumber1)
 
     // Pushes compareValue into array
 
     myArray.push(compareValue)
-
-    // Display laps
-
-    lapNumber++;
-
-    if (lapNumber > 1 && !myBoolean){
-        myArray2.splice(0, 1)
-        myBoolean = true;
-        lapNumber = 1;
-        console.log('splice ran!')
-    }
-
-    myArray2.push(`<p class = 'lap-display-text lap-number js-lap-${lapNumber}'>Lap${lapNumber}</p><p class = 'lap-display-text js-lap-stopwatch-${lapNumber}'>${tensMinutes1 || 0}${unitsMinutes1 || 0}:${tensSeconds1 || 0}${unitsSeconds1 || 0}.${tensMilliseconds1 || 0}${unitsMilliseconds1 || 0}</p>`)
-
-    for (let i = myArray2.length; i > 0; i--){
-        lapDisplay.innerHTML += myArray2[i - 1]
-    }
 
     // Reset variables in preperation of new Lap
 
@@ -251,18 +230,29 @@ const lapTimer = () => {
     unitsMinutes1 = 0;
     tensMinutes1 = 0;
     compareValue = 0;
+    index ++;
 
-    // Start mini-timer
+    // Display laps
 
-    lapStopwatch = document.querySelector(`.js-lap-stopwatch-${lapNumber}`);
+    lapNumber++;
 
-    startLapTimer(lapStopwatch);
+    myStopwatchArray.push('00:00.00')
+
+    if (myStopwatchArray.length > 0){
+        reversedArray = [...myStopwatchArray].reverse()
+
+        lapDisplay.innerHTML = '';
+
+        reversedArray.forEach((element,index) => {
+            lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number js-lap-${reversedArray.length - index}'>Lap${reversedArray.length - index}</p><p class = 'lap-display-text js-lap-stopwatch-${reversedArray.length - index}'>${element}</p>`;
+        });
+    }
+
+    startLapTimer();
 
     // For max and min
 
     compareLapTimer()
-
-    console.log(myArray2)
 }
 
 const compareLapTimer = () => {
@@ -276,7 +266,7 @@ const compareLapTimer = () => {
     //Find min and max
 
     myArray.forEach((element, i) => {
-        if (myArray.length > 1 && element === 0){ // Splices the 0 from array to avoid bug
+        if (myArray.length > 1 && element === 0){
             myArray.splice(0,1)
         }
         if (element === Math.max(...myArray)){
@@ -289,7 +279,7 @@ const compareLapTimer = () => {
 
     //Style
 
-    // Reset css by removing .green and .red from all laps
+    // Remove .green and .red from all laps
 
     for (let i = 0; i < AllDisplay.length; i++){
         AllDisplay[i].classList.remove('green')
@@ -314,7 +304,7 @@ const compareLapTimer = () => {
     }
 }
 
-const startLapTimer = (lapStopwatch) => {
+const startLapTimer = () => {
     i1 = i1 || 0;
     j1 = j1 || 0;
     k1 = k1 || 0;
@@ -332,9 +322,8 @@ const startLapTimer = (lapStopwatch) => {
 
         unitsMilliseconds1++;
 
-        lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${unitsSeconds1}.${tensMilliseconds1}${unitsMilliseconds1}`
+        myStopwatchArray[index] = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${unitsSeconds1}.${tensMilliseconds1}${unitsMilliseconds1}`
 
-        
         if (unitsMilliseconds1 === 10){
 
             if (i1 === 9){
@@ -343,7 +332,7 @@ const startLapTimer = (lapStopwatch) => {
 
             i1++;
 
-            lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${unitsSeconds1}.${i1}0`
+            myStopwatchArray[index] = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${unitsSeconds1}.${i1}0`
 
             unitsMilliseconds1 = 0;
         
@@ -359,7 +348,7 @@ const startLapTimer = (lapStopwatch) => {
 
             j1++; 
 
-            lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${j1}.00`
+            myStopwatchArray[index] = `${tensMinutes1}${unitsMinutes1}:${tensSeconds1}${j1}.00`
             
             tensMilliseconds1 = 0;
         
@@ -375,7 +364,7 @@ const startLapTimer = (lapStopwatch) => {
 
             k1++;
 
-            lapStopwatch.innerHTML = `${tensMinutes1}${unitsMinutes1}:${k1}0.00`
+            myStopwatchArray[index] = `${tensMinutes1}${unitsMinutes1}:${k1}0.00`
             
             unitsSeconds1 = 0;
         
@@ -391,7 +380,7 @@ const startLapTimer = (lapStopwatch) => {
 
             m1++;
 
-            lapStopwatch.innerHTML = `${tensMinutes1}${l1}:00.00`
+            myStopwatchArray[index] = `${tensMinutes1}${l1}:00.00`
             
             tensSeconds1 = 0;
         
@@ -407,7 +396,7 @@ const startLapTimer = (lapStopwatch) => {
 
             n1++;
 
-            lapStopwatch.innerHTML = `${m1}0:0.00`
+            myStopwatchArray[index] = `${m1}0:0.00`
         
             unitsMinutes1 = 0;
         
@@ -419,11 +408,12 @@ const startLapTimer = (lapStopwatch) => {
             reDirect();
         }
 
+        document.querySelector(`.js-lap-stopwatch-${lapNumber}`).innerHTML = myStopwatchArray[index]
+
         compareValue++;
 
     }, timeOut1);
 
-    objectIndex++;
 }
 
 // Onclick Stuffs
@@ -455,9 +445,9 @@ startButton.addEventListener('click', () => {
         if (lapNumber === 0){
             lapTimer()
         }
-
+        
         else{
-            startLapTimer(lapStopwatch)
+            startLapTimer()
         }
 
     }
@@ -487,7 +477,7 @@ lapButton.addEventListener('click', () => {
 
     else{
 
-        (lapButton.classList).forEach((element) => {  /// Loops through lap button class to check for lap-button-active
+        (lapButton.classList).forEach((element) => {  /// Loops through lapbutto class to check for lap-button-active
             if (element === 'lap-button-active'){
                 lapTimer();
             }
@@ -523,8 +513,20 @@ Create Reset and Lap.
     Reset turns back to inactive lap. Done
 
 
-    FIX LAP
+FIX LAP
     Lap is a mini-timer which intiates on start button, and displays new lap and resets mini-timer each time lap-button is clicked. Done
-    Push Lap and 00:00.00 onto array, array returns array[0] so displays from start
+    Lap should insert newest on top
+        create array which saves html element
+        create (decreasing index) for loop to run through each element and display them onto page
+
+        Issue1:
+            When lapTimer() first runs it will save undefined element because 'pushing the array' runs before the startlapTimer(). First Lap will be undefined. DONE
+    Solution:
+        Use While do loop which runs the function first then checks the condition. DONE
+        Rather than .innerHTML lapTimer() saves the numbers in an array directly. DONE
+
+
+
+
 
 */

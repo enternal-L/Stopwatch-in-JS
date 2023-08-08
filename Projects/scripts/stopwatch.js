@@ -504,7 +504,13 @@ FIX LAP
         create (decreasing index) for loop to run through each element and display them onto page
 
         Issue1:
-            When lapTimer() first runs it will save undefined element because 'pushing the array' runs before the startlapTimer(). First Lap will be undefined
-            
+            When lapTimer() first runs it will save undefined element because 'pushing the array' runs before the startlapTimer(). First Lap will be undefined.
+    Solution:
+        Use While do loop which runs the function first then checks the condition
+        Rather than .innerHTML lapTimer() saves the numbers in an array directly
+
+
+
+
 
 */
