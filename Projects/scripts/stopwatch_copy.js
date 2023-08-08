@@ -245,7 +245,6 @@ const lapTimer = () => {
 
         reversedArray.forEach((element,index) => {
             lapDisplay.innerHTML += `<p class = 'lap-display-text lap-number js-lap-${reversedArray.length - index}'>Lap${reversedArray.length - index}</p><p class = 'lap-display-text js-lap-stopwatch-${reversedArray.length - index}'>${element}</p>`;
-            console.log(reversedArray)
         });
     }
 
